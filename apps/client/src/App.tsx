@@ -1,39 +1,38 @@
-import {useEffect, useState} from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import {ApolloProvider} from "@apollo/react-hooks";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  from,
+} from "@apollo/client";
+import {onError} from "@apollo/client/link/error";
+import {GRAPHQL_ENDPOINT} from "./constants";
+
+import {Home} from "./components/home";
+
+const httpLink = createHttpLink({
+  uri: GRAPHQL_ENDPOINT,
+});
 
 function App() {
-  const [count, setCount] = useState<number>(0);
-  const [greeting, setGreeting] = useState<string>("");
+  const errorLink = onError(({graphQLErrors}) => {
+    if (graphQLErrors)
+      graphQLErrors.forEach(({extensions}) => {
+        console.log("graphql error", extensions);
+      });
+  });
 
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.text())
-      .then(setGreeting);
-  }, []);
+  const client = new ApolloClient({
+    link: from([errorLink, httpLink]),
+    cache: new InMemoryCache({
+      addTypename: false,
+    }),
+  });
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">{greeting}</p>
-    </div>
+    <ApolloProvider client={client}>
+      <Home />
+    </ApolloProvider>
   );
 }
 

@@ -1,0 +1,6 @@
+query cats {
+  cats {
+    name
+    age
+  }
+}

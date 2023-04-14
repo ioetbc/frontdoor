@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 
-import { CatsModule } from './cats/cats.module';
+import { LibraryModule } from './cats/cats.module';
 import { ApolloDriver } from '@nestjs/apollo';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    CatsModule,
+    LibraryModule,
     GraphQLModule.forRoot({
       playground: true,
       driver: ApolloDriver,

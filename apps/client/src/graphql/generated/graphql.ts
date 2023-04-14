@@ -14,40 +14,46 @@ export type Scalars = {
   Float: number;
 };
 
-export type CatInput = {
-  age: Scalars['Int'];
-  breed: Scalars['String'];
-  name: Scalars['String'];
+export type LibraryInput = {
+  summary: Scalars['String'];
+  tags: Array<Scalars['String']>;
 };
 
-export type CatType = {
-  __typename?: 'CatType';
-  age: Scalars['Int'];
-  breed: Scalars['String'];
+export type LibraryType = {
+  __typename?: 'LibraryType';
   id: Scalars['ID'];
-  name: Scalars['String'];
+  summary: Scalars['String'];
+  tags: Array<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createCat: CatType;
+  createRecord: LibraryType;
 };
 
 
-export type MutationCreateCatArgs = {
-  input: CatInput;
+export type MutationCreateRecordArgs = {
+  input: LibraryInput;
 };
 
 export type Query = {
   __typename?: 'Query';
-  cats: Array<CatType>;
-  hello: Scalars['String'];
+  fetchLibrary: Array<LibraryType>;
 };
 
-export type CatsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateRecordMutationVariables = Exact<{
+  summary: Scalars['String'];
+  tags: Array<Scalars['String']> | Scalars['String'];
+}>;
 
 
-export type CatsQuery = { __typename?: 'Query', cats: Array<{ __typename?: 'CatType', name: string, age: number }> };
+export type CreateRecordMutation = { __typename?: 'Mutation', createRecord: { __typename?: 'LibraryType', summary: string, tags: Array<string> } };
+
+export type FetchLibraryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export const CatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"cats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"age"}}]}}]}}]} as unknown as DocumentNode<CatsQuery, CatsQueryVariables>;
+export type FetchLibraryQuery = { __typename?: 'Query', fetchLibrary: Array<{ __typename?: 'LibraryType', summary: string, tags: Array<string> }> };
+
+
+export const CreateRecordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createRecord"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"summary"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tags"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createRecord"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"summary"},"value":{"kind":"Variable","name":{"kind":"Name","value":"summary"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"tags"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tags"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}}]}}]}}]} as unknown as DocumentNode<CreateRecordMutation, CreateRecordMutationVariables>;
+export const FetchLibraryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fetchLibrary"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fetchLibrary"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}}]}}]}}]} as unknown as DocumentNode<FetchLibraryQuery, FetchLibraryQueryVariables>;

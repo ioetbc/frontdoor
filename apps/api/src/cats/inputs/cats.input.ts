@@ -1,11 +1,9 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CatInput {
-  @Field()
-  readonly name: string;
-  @Field(() => Int)
-  readonly age: number;
-  @Field()
-  readonly breed: string;
+export class LibraryInput {
+  @Field(() => String)
+  readonly summary: string;
+  @Field(() => [String])
+  readonly tags: string[];
 }

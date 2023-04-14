@@ -2,23 +2,21 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type CatType {
+type LibraryType {
   id: ID!
-  name: String!
-  age: Int!
-  breed: String!
+  summary: String!
+  tags: [String!]!
 }
 
 type Query {
-  cats: [CatType!]!
+  fetchLibrary: [LibraryType!]!
 }
 
 type Mutation {
-  createCat(input: CatInput!): CatType!
+  createRecord(input: LibraryInput!): LibraryType!
 }
 
-input CatInput {
-  name: String!
-  age: Int!
-  breed: String!
+input LibraryInput {
+  summary: String!
+  tags: [String!]!
 }

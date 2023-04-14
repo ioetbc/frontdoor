@@ -1,6 +1,6 @@
-query cats {
-  cats {
-    name
-    age
+query fetchLibrary {
+  fetchLibrary {
+    summary
+    tags
   }
 }

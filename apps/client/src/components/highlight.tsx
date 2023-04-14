@@ -1,12 +1,26 @@
 import {useEffect, useState} from "react";
+import {useMutation} from "@apollo/client";
+import {CreateRecordDocument} from "../graphql/generated/graphql";
 
-export const Selection = () => {
-  const [selection, setSelection] = useState<string>("");
+export const Highlight = () => {
+  const [createRecord] = useMutation(CreateRecordDocument);
+  const [text, setText] = useState<string>("");
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [tooltipPosition, setTooltipPosition] = useState<{
     x: number;
     y: number;
   }>({x: 0, y: 0});
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+
+  const handleSave = () => {
+    console.log("save summary");
+    console.log("text:", text);
+    createRecord({
+      variables: {
+        summary: text,
+        tags: ["something", "something else"],
+      },
+    });
+  };
 
   const getSelectionText = (): string => {
     return window.getSelection()!.toString();
@@ -17,13 +31,11 @@ export const Selection = () => {
 
     if (selectedText) {
       console.log("mandem text:", selectedText);
-      setSelection(selectedText);
+      setText(selectedText);
 
       const range = window.getSelection()?.getRangeAt(0);
-      console.log("range", range);
       if (range) {
         const rect = range.getBoundingClientRect();
-        console.log("rect", rect);
         setTooltipPosition({x: rect.left + rect.width / 2, y: rect.top});
         setShowTooltip(true);
       }
@@ -56,7 +68,10 @@ export const Selection = () => {
           whiteSpace: "nowrap",
         }}
       >
-        {selection}
+        <div style={{display: "flex", flexDirection: "column"}}>
+          {text}
+          <button onClick={handleSave}>save summary</button>
+        </div>
       </div>
     </>
   );

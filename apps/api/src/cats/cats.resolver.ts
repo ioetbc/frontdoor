@@ -1,19 +1,19 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { CatsService } from './cats.service';
-import { CatType } from './dto/create-cat.dto';
-import { CatInput } from './inputs/cats.input';
+import { LibraryService } from './cats.service';
+import { LibraryType } from './dto/create-cat.dto';
+import { LibraryInput } from './inputs/cats.input';
 
 @Resolver()
-export class CatsResolver {
-  constructor(private readonly catsService: CatsService) {}
+export class LibraryResolver {
+  constructor(private readonly libraryService: LibraryService) {}
 
-  @Query(() => [CatType])
-  async cats() {
-    return this.catsService.findAll();
+  @Mutation(() => LibraryType)
+  async createRecord(@Args('input') input: LibraryInput) {
+    return this.libraryService.create(input);
   }
 
-  @Mutation(() => CatType)
-  async createCat(@Args('input') input: CatInput) {
-    return this.catsService.create(input);
+  @Query(() => [LibraryType])
+  async fetchLibrary() {
+    return this.libraryService.findAll();
   }
 }

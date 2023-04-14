@@ -1,19 +1,22 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Cat } from './interfaces/cats.interface';
-import { CatInput } from './inputs/cats.input';
+import { Library } from './interfaces/cats.interface';
+import { LibraryInput } from './inputs/cats.input';
 
 @Injectable()
-export class CatsService {
-  constructor(@InjectModel('Cat') private readonly catModel: Model<Cat>) {}
+export class LibraryService {
+  constructor(
+    @InjectModel('Library') private readonly libraryModel: Model<Library>,
+  ) {}
 
-  async create(createCatDto: CatInput): Promise<Cat> {
-    const createdCat = new this.catModel(createCatDto);
-    return await createdCat.save();
+  async create(createLibraryDto: LibraryInput): Promise<Library> {
+    const item = new this.libraryModel(createLibraryDto);
+    console.log('item to create intnit', item);
+    return await item.save();
   }
 
-  async findAll(): Promise<Cat[]> {
-    return await this.catModel.find().exec();
+  async findAll(): Promise<Library[]> {
+    return await this.libraryModel.find().exec();
   }
 }

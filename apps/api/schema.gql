@@ -10,7 +10,6 @@ type CatType {
 }
 
 type Query {
-  hello: String!
   cats: [CatType!]!
 }
 

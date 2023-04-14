@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class LibraryInput {
+export class TextInput {
   @Field(() => String)
   readonly text: string;
 }

@@ -6,9 +6,11 @@ import {
   from,
 } from "@apollo/client";
 import {onError} from "@apollo/client/link/error";
+import {ChakraProvider} from "@chakra-ui/react";
 import {GRAPHQL_ENDPOINT} from "./constants";
 
-import {Highlight} from "./components/highlight";
+import {Tooltip} from "./components/tooltip";
+import {Library} from "./screens/library";
 
 const httpLink = createHttpLink({
   uri: GRAPHQL_ENDPOINT,
@@ -31,7 +33,10 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <Highlight />
+      <ChakraProvider>
+        <Library />
+        <Tooltip />
+      </ChakraProvider>
     </ApolloProvider>
   );
 }

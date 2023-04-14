@@ -1,6 +1,8 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
-export interface Library extends Document {
+export interface Record extends Document {
+  readonly _id: Types.ObjectId;
   readonly summary: string;
-  readonly tags: [Library];
+  readonly tags: [string];
+  readonly createdAt: Date;
 }

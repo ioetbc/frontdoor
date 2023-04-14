@@ -2,20 +2,48 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type LibraryType {
+type TCreateRecord {
+  summary: String!
+  tags: [String!]!
+  createdAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type TRecord {
+  _id: String!
+  summary: String!
+  tags: [String!]!
+  createdAt: DateTime!
+}
+
+type SummaryType {
   summary: String!
   tags: [String!]!
 }
 
 type Query {
-  fetchLibrary: [LibraryType!]!
-  fetchSummary(input: LibraryInput!): LibraryType!
+  fetchLibrary(input: SortInput!): [TRecord!]!
+  fetchRecordsByTag(input: TextInput!): [TRecord!]!
+  fetchSummary(input: TextInput!): SummaryType!
 }
 
-input LibraryInput {
+input SortInput {
+  asc: Boolean! = true
+}
+
+input TextInput {
   text: String!
 }
 
 type Mutation {
-  createRecord(input: LibraryInput!): LibraryType!
+  createRecord(input: RecordInput!): TCreateRecord!
+}
+
+input RecordInput {
+  summary: String!
+  tags: [String!]!
 }

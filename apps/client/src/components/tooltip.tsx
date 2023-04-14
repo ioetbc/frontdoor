@@ -5,7 +5,7 @@ import {
   FetchSummaryDocument,
 } from "../graphql/generated/graphql";
 
-export const Highlight = () => {
+export const Tooltip = () => {
   const [createRecord] = useMutation(CreateRecordDocument);
   const [fetchSummary, {data, loading, error}] =
     useLazyQuery(FetchSummaryDocument);

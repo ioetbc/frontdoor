@@ -4,11 +4,11 @@ import {
   CreateRecordDocument,
   FetchSummaryDocument,
 } from "../graphql/generated/graphql";
+import {Box, Tag, Badge, Flex, Button, Text, Spinner} from "@chakra-ui/react";
 
 export const Tooltip = () => {
   const [createRecord] = useMutation(CreateRecordDocument);
-  const [fetchSummary, {data, loading, error}] =
-    useLazyQuery(FetchSummaryDocument);
+  const [fetchSummary, {data, loading}] = useLazyQuery(FetchSummaryDocument);
 
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [tooltipPosition, setTooltipPosition] = useState<{
@@ -45,7 +45,7 @@ export const Tooltip = () => {
       const range = window.getSelection()?.getRangeAt(0);
       if (range) {
         const rect = range.getBoundingClientRect();
-        setTooltipPosition({x: rect.left + rect.width / 2, y: rect.top});
+        setTooltipPosition({x: rect.left + rect.width / 2, y: rect.top - 10});
         setShowTooltip(true);
       }
 
@@ -65,40 +65,45 @@ export const Tooltip = () => {
     };
   }, []);
 
-  console.log("datadatadatadatadatadatadata", data);
-  console.log("errorerrorerrorerrorerrorerror", error);
-  console.log("loadingloadingloadingloadingloading", loading);
+  if (!showTooltip) {
+    return null;
+  }
 
   return (
-    <>
-      <div
-        style={{
-          display: showTooltip ? "block" : "none",
-          position: "fixed",
-          left: tooltipPosition.x,
-          top: tooltipPosition.y,
-          backgroundColor: "black",
-          color: "white",
-          padding: "5px 10px",
-          borderRadius: "3px",
-          transform: "translate(-50%, -100%)",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {loading ? (
-          "loading..."
-        ) : (
-          <div style={{display: "flex", flexDirection: "column"}}>
-            {data?.fetchSummary.summary}
-            <div style={{display: "flex", gap: 4}}>
-              {data?.fetchSummary.tags.map((tag) => (
-                <span style={{background: "red"}}>{tag}</span>
-              ))}
-            </div>
-            <button onClick={handleSave}>save summary</button>
-          </div>
-        )}
-      </div>
-    </>
+    <Box
+      borderRadius={4}
+      transform="translate(-50%, -100%)"
+      position="fixed"
+      top={tooltipPosition.y}
+      left={tooltipPosition.x}
+      maxWidth="40%"
+    >
+      <Tag padding={4} boxShadow="lg">
+        <Flex flexDirection="column">
+          {loading ? (
+            <Spinner colorScheme="purple" />
+          ) : (
+            <Flex gap={4} flexDirection="column">
+              <Text>{data?.fetchSummary.summary}</Text>
+              <Flex gap={4} flexWrap="wrap">
+                {data?.fetchSummary.tags.map((tag) => (
+                  <Badge colorScheme="purple" key={tag}>
+                    {tag}
+                  </Badge>
+                ))}
+              </Flex>
+              <Button
+                width={54}
+                size="xs"
+                colorScheme="purple"
+                onClick={handleSave}
+              >
+                SAVE
+              </Button>
+            </Flex>
+          )}
+        </Flex>
+      </Tag>
+    </Box>
   );
 };

@@ -5,7 +5,6 @@ interface OrderByProps {
 
 export const OrderLibrary = ({onChangeHandler}: OrderByProps) => {
   const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("e.target.checked", e);
     onChangeHandler(e.target.checked);
   };
   return (

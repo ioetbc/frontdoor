@@ -62,7 +62,7 @@ export const Library = () => {
         onChangeHandler={handleTagChange}
       />
       <OrderLibrary onChangeHandler={handleOrderLibraryChange} />
-      <UnorderedList>
+      <UnorderedList role="list">
         {library.map((record) => (
           <ListItem>{record.summary}</ListItem>
         ))}

@@ -4,3 +4,10 @@ query fetchLibrary {
     tags
   }
 }
+
+query fetchSummary($text: String!) {
+  fetchSummary(input: {text: $text}) {
+    summary
+    tags
+  }
+}

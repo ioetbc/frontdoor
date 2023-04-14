@@ -1,5 +1,5 @@
-mutation createRecord($summary: String!, $tags: [String!]!) {
-  createRecord(input: {summary: $summary, tags: $tags}) {
+mutation createRecord($text: String!) {
+  createRecord(input: {text: $text}) {
     summary
     tags
   }

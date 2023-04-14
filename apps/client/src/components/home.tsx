@@ -8,5 +8,5 @@ export const Home = () => {
     return <div>Loading...</div>;
   }
   console.log("data", data);
-  return <div>bang</div>;
+  return <div>working hot reddddload</div>;
 };

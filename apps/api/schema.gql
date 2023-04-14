@@ -25,7 +25,12 @@ type SummaryType {
   tags: [String!]!
 }
 
+type TTag {
+  tag: String!
+}
+
 type Query {
+  fetchTags: [TTag!]!
   fetchLibrary(input: SortInput!): [TRecord!]!
   fetchRecordsByTag(input: TextInput!): [TRecord!]!
   fetchSummary(input: TextInput!): SummaryType!

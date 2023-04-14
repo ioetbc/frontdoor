@@ -9,6 +9,7 @@ import { RecordInput } from './inputs/record.input';
 import { TextInput } from './inputs/text.input';
 import { summariseTextPrompt } from '../utils/open-ai-prompts';
 import { SortInput } from './inputs/sort.input';
+import { TTag } from './dto/tag.dto';
 
 @Resolver()
 export class LibraryResolver {
@@ -17,6 +18,11 @@ export class LibraryResolver {
   @Mutation(() => TCreateRecord)
   async createRecord(@Args('input') input: RecordInput) {
     return this.library.create({ ...input, createdAt: new Date() });
+  }
+
+  @Query(() => [TTag])
+  async fetchTags() {
+    return this.library.fetchTags();
   }
 
   @Query(() => [TRecord])

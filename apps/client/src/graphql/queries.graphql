@@ -1,5 +1,5 @@
-query fetchLibrary {
-  fetchLibrary {
+query fetchLibrary($asc: Boolean!) {
+  fetchLibrary(input: {asc: $asc}) {
     summary
     tags
   }
@@ -7,6 +7,21 @@ query fetchLibrary {
 
 query fetchSummary($text: String!) {
   fetchSummary(input: {text: $text}) {
+    summary
+    tags
+  }
+}
+
+query fetchTags {
+  fetchTags {
+    tag
+  }
+}
+
+query fetchRecordsByTag($text: String!) {
+  fetchRecordsByTag(input: {text: $text}) {
+    _id
+    createdAt
     summary
     tags
   }

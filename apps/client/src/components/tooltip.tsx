@@ -22,7 +22,8 @@ export const Tooltip = () => {
     }
     createRecord({
       variables: {
-        text: data.fetchSummary.summary,
+        summary: data.fetchSummary.summary,
+        tags: data.fetchSummary.tags,
       },
     });
   };

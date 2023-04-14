@@ -13,8 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "mutation createRecord($text: String!) {\n  createRecord(input: {text: $text}) {\n    summary\n    tags\n  }\n}": types.CreateRecordDocument,
-    "query fetchLibrary {\n  fetchLibrary {\n    summary\n    tags\n  }\n}\n\nquery fetchSummary($text: String!) {\n  fetchSummary(input: {text: $text}) {\n    summary\n    tags\n  }\n}": types.FetchLibraryDocument,
+    "mutation createRecord($summary: String!, $tags: [String!]!) {\n  createRecord(input: {summary: $summary, tags: $tags}) {\n    summary\n    tags\n  }\n}": types.CreateRecordDocument,
+    "query fetchLibrary($asc: Boolean!) {\n  fetchLibrary(input: {asc: $asc}) {\n    summary\n    tags\n  }\n}\n\nquery fetchSummary($text: String!) {\n  fetchSummary(input: {text: $text}) {\n    summary\n    tags\n  }\n}\n\nquery fetchTags {\n  fetchTags {\n    tag\n  }\n}\n\nquery fetchRecordsByTag($text: String!) {\n  fetchRecordsByTag(input: {text: $text}) {\n    _id\n    createdAt\n    summary\n    tags\n  }\n}": types.FetchLibraryDocument,
 };
 
 /**
@@ -34,11 +34,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation createRecord($text: String!) {\n  createRecord(input: {text: $text}) {\n    summary\n    tags\n  }\n}"): (typeof documents)["mutation createRecord($text: String!) {\n  createRecord(input: {text: $text}) {\n    summary\n    tags\n  }\n}"];
+export function graphql(source: "mutation createRecord($summary: String!, $tags: [String!]!) {\n  createRecord(input: {summary: $summary, tags: $tags}) {\n    summary\n    tags\n  }\n}"): (typeof documents)["mutation createRecord($summary: String!, $tags: [String!]!) {\n  createRecord(input: {summary: $summary, tags: $tags}) {\n    summary\n    tags\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query fetchLibrary {\n  fetchLibrary {\n    summary\n    tags\n  }\n}\n\nquery fetchSummary($text: String!) {\n  fetchSummary(input: {text: $text}) {\n    summary\n    tags\n  }\n}"): (typeof documents)["query fetchLibrary {\n  fetchLibrary {\n    summary\n    tags\n  }\n}\n\nquery fetchSummary($text: String!) {\n  fetchSummary(input: {text: $text}) {\n    summary\n    tags\n  }\n}"];
+export function graphql(source: "query fetchLibrary($asc: Boolean!) {\n  fetchLibrary(input: {asc: $asc}) {\n    summary\n    tags\n  }\n}\n\nquery fetchSummary($text: String!) {\n  fetchSummary(input: {text: $text}) {\n    summary\n    tags\n  }\n}\n\nquery fetchTags {\n  fetchTags {\n    tag\n  }\n}\n\nquery fetchRecordsByTag($text: String!) {\n  fetchRecordsByTag(input: {text: $text}) {\n    _id\n    createdAt\n    summary\n    tags\n  }\n}"): (typeof documents)["query fetchLibrary($asc: Boolean!) {\n  fetchLibrary(input: {asc: $asc}) {\n    summary\n    tags\n  }\n}\n\nquery fetchSummary($text: String!) {\n  fetchSummary(input: {text: $text}) {\n    summary\n    tags\n  }\n}\n\nquery fetchTags {\n  fetchTags {\n    tag\n  }\n}\n\nquery fetchRecordsByTag($text: String!) {\n  fetchRecordsByTag(input: {text: $text}) {\n    _id\n    createdAt\n    summary\n    tags\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

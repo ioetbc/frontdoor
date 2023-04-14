@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const LibrarySchema = new mongoose.Schema({
+export const MongooseSchema = new mongoose.Schema({
   summary: String,
   tags: [String],
 });

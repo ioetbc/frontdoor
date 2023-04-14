@@ -3,20 +3,19 @@
 # ------------------------------------------------------
 
 type LibraryType {
-  id: ID!
   summary: String!
   tags: [String!]!
 }
 
 type Query {
   fetchLibrary: [LibraryType!]!
+  fetchSummary(input: LibraryInput!): LibraryType!
+}
+
+input LibraryInput {
+  text: String!
 }
 
 type Mutation {
   createRecord(input: LibraryInput!): LibraryType!
-}
-
-input LibraryInput {
-  summary: String!
-  tags: [String!]!
 }

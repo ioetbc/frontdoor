@@ -9,7 +9,7 @@ const globalStyles = document.createElement("style");
 globalStyles.innerHTML = `
   #${rootElement.id} {
   position: fixed;
-  left: 0;
+  right: 0;
   top: 0;
   width: 300px;
   height: 100vh;

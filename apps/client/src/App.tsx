@@ -8,7 +8,7 @@ import {
 import {onError} from "@apollo/client/link/error";
 import {GRAPHQL_ENDPOINT} from "./constants";
 
-import {Home} from "./components/home";
+import {Selection} from "./components/selection";
 
 const httpLink = createHttpLink({
   uri: GRAPHQL_ENDPOINT,
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <Home />
+      <Selection />
     </ApolloProvider>
   );
 }

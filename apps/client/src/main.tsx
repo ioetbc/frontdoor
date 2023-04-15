@@ -1,6 +1,37 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import {ApolloProvider} from "@apollo/react-hooks";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  from,
+} from "@apollo/client";
+import {onError} from "@apollo/client/link/error";
+import {ChakraProvider} from "@chakra-ui/react";
+
+import {GRAPHQL_HTTP_ENDPOINT} from "./constants";
+
 import App from "./App";
+import {RefetchProvider} from "./context/refetch-context";
+
+const httpLink = createHttpLink({
+  uri: GRAPHQL_HTTP_ENDPOINT,
+});
+
+const errorLink = onError(({graphQLErrors}) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({extensions}) => {
+      console.log("graphql error", extensions);
+    });
+});
+
+const client = new ApolloClient({
+  link: from([errorLink, httpLink]),
+  cache: new InMemoryCache({
+    addTypename: false,
+  }),
+});
 
 const rootElement = document.createElement("div");
 rootElement.id = "react-chrome-app";
@@ -25,6 +56,12 @@ const root = ReactDOM.createRoot(rootElement as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <ChakraProvider>
+        <RefetchProvider>
+          <App />
+        </RefetchProvider>
+      </ChakraProvider>
+    </ApolloProvider>
   </React.StrictMode>
 );

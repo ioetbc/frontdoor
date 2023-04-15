@@ -1,0 +1,7 @@
+subscription fetchLibrary($asc: Boolean!) {
+  fetchLibrary(input: {asc: $asc}) {
+    id
+    summary
+    tags
+  }
+}

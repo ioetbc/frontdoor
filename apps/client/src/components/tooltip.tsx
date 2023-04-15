@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useRefetch} from "../context/refetch-context";
 import {useLazyQuery, useMutation} from "@apollo/client";
 import {
   CreateRecordDocument,
@@ -7,6 +8,7 @@ import {
 import {Box, Tag, Badge, Flex, Button, Text, Spinner} from "@chakra-ui/react";
 
 export const Tooltip = () => {
+  const {setShouldRefetch} = useRefetch();
   const [createRecord] = useMutation(CreateRecordDocument);
   const [fetchSummary, {data, loading}] = useLazyQuery(FetchSummaryDocument);
 
@@ -16,16 +18,21 @@ export const Tooltip = () => {
     y: number;
   }>({x: 0, y: 0});
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!data?.fetchSummary?.summary) {
       return;
     }
-    createRecord({
-      variables: {
-        summary: data.fetchSummary.summary,
-        tags: data.fetchSummary.tags,
-      },
-    });
+    try {
+      await createRecord({
+        variables: {
+          summary: data.fetchSummary.summary,
+          tags: data.fetchSummary.tags,
+        },
+      });
+      setShouldRefetch(true);
+    } catch (error) {
+      console.log("Error creating record", error);
+    }
   };
 
   const getSelectionText = (): string => {
@@ -40,8 +47,6 @@ export const Tooltip = () => {
     }
 
     if (selectedText) {
-      console.log("mandem text:", selectedText);
-
       const range = window.getSelection()?.getRangeAt(0);
       if (range) {
         const rect = range.getBoundingClientRect();
@@ -79,7 +84,7 @@ export const Tooltip = () => {
       maxWidth="40%"
     >
       <Tag padding={4} boxShadow="lg">
-        <Flex flexDirection="column">
+        <Flex flexDirection={"column"}>
           {loading ? (
             <Spinner colorScheme="purple" />
           ) : (
@@ -87,7 +92,7 @@ export const Tooltip = () => {
               <Text>{data?.fetchSummary.summary}</Text>
               <Flex gap={4} flexWrap="wrap">
                 {data?.fetchSummary.tags.map((tag) => (
-                  <Badge colorScheme="purple" key={tag}>
+                  <Badge colorScheme="purple" key={`tooltip-${tag}`}>
                     {tag}
                   </Badge>
                 ))}

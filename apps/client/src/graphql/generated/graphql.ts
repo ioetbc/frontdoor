@@ -58,6 +58,11 @@ export type SortInput = {
   asc?: Scalars['Boolean'];
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  recordAdded: TRecord;
+};
+
 export type SummaryType = {
   __typename?: 'SummaryType';
   summary: Scalars['String'];

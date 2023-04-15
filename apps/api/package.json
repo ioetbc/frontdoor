@@ -29,6 +29,7 @@
     "@nestjs/mongoose": "^9.2.2",
     "@nestjs/platform-express": "^9.4.0",
     "graphql": "^16.6.0",
+    "graphql-subscriptions": "^2.0.0",
     "mongoose": "^7.0.3",
     "openai": "^3.2.1",
     "reflect-metadata": "^0.1.13",

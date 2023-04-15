@@ -1,9 +1,9 @@
-query fetchLibrary($asc: Boolean!) {
-  fetchLibrary(input: {asc: $asc}) {
-    summary
-    tags
-  }
-}
+# query fetchLibrary($asc: Boolean!) {
+#   fetchLibrary(input: {asc: $asc}) {
+#     summary
+#     tags
+#   }
+# }
 
 query fetchSummary($text: String!) {
   fetchSummary(input: {text: $text}) {

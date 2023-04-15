@@ -1,9 +1,9 @@
 import type {CodegenConfig} from "@graphql-codegen/cli";
-import {GRAPHQL_ENDPOINT} from "./src/constants";
+import {GRAPHQL_HTTP_ENDPOINT} from "./src/constants";
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: GRAPHQL_ENDPOINT,
+  schema: GRAPHQL_HTTP_ENDPOINT,
   documents: "./src/graphql/*.graphql",
   generates: {
     "./src/graphql/generated/": {

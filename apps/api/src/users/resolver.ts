@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { Configuration, OpenAIApi } from 'openai';
 
 import { Service } from './service';
-import { TCreateRecord } from './dto/create-cat.dto';
+import { TCreateRecord } from './dto/create-record.dto';
 import { TRecord } from './dto/record.dto';
 import { SummaryType } from './dto/summary.dto';
 import { RecordInput } from './inputs/record.input';

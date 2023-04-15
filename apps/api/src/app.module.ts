@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 
-import { LibraryModule } from './cats/cats.module';
+import { LibraryModule } from './users/record.module';
 import { ApolloDriver } from '@nestjs/apollo';
 import { MongooseModule } from '@nestjs/mongoose';
 

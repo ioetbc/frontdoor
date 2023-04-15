@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { IRecord } from './interfaces/cats.interface';
-import { TCreateRecord } from './dto/create-cat.dto';
+import { IRecord } from './interfaces/record.interface';
+import { TCreateRecord } from './dto/create-record.dto';
 import { TTag } from './dto/tag.dto';
 
 @Injectable()
